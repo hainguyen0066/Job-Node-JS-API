@@ -22,5 +22,4 @@ router.route('/job/:id/')
     .delete(deleteJob);
 router.route('/job/:id/:slug').get(getJob);
 
-
 module.exports = router;
