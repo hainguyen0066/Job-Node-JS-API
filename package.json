@@ -1,0 +1,24 @@
+{
+  "name": "job-node-api",
+  "version": "1.0.0",
+  "description": "job api hai nguyen",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app",
+    "pro": "SET NODE_ENV=production & nodemon app.js"
+  },
+  "author": "hai nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "node-geocoder": "^4.2.0",
+    "slugify": "^1.6.6",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
