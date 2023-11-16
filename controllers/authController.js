@@ -2,8 +2,8 @@ const User = require('../models/users');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwtToken');
-// const sendEmail = require('../utils/sendEmail');
-// const crypto = require('crypto');
+const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
 
 // Register a new user   =>   /api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -15,8 +15,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 		password,
 		role
 	});
-
-	token = user.getJwtToken();
 
 	sendToken(user, 200, res);
 });
@@ -43,8 +41,6 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 	if (!isPasswordMatched) {
 		return next(new ErrorHandler('Invalid Email or Password', 401));
 	}
-
-	token = user.getJwtToken();
 
 	sendToken(user, 200, res);
 });
@@ -118,7 +114,6 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 	user.resetPasswordToken = undefined;
 	user.resetPasswordExpire = undefined;
-
 	await user.save();
 
 	sendToken(user, 200, res);

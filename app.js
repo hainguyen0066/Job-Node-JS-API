@@ -3,6 +3,7 @@ const app = express();
 
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 
 const connectDatabase = require('./config/database');
 const errorMiddleware = require('./middlewares/errors');
@@ -29,12 +30,17 @@ app.use(express.json());
 //set cooke parser
 app.use(cookieParser());
 
+//set cooke parser
+app.use(fileUpload());
+
 // import all routes
 const job = require('./routes/job');
 const auth = require('./routes/auth');
+const user = require('./routes/user');
 
 app.use('/api/v1/', job);
 app.use('/api/v1/', auth);
+app.use('/api/v1/', user);
 
 // Handle unhandled routes
 app.all('*', (req, res, next) => {
@@ -48,7 +54,6 @@ const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
     console.log(`Server started on port ${PORT} in ${process.env.NODE_ENV} mode`);
 })
-
 
 // Handling Unhandled Promise Rejection
 process.on('unhandledRejection', err => {

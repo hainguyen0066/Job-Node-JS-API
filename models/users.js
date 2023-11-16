@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema(
 			unique: true,
 			validate: [validator.isEmail, 'Please enter valid email address']
 		},
+		password: {
+			type: String,
+			required: [true, 'Please enter password for your account'],
+			minlength: [8, 'Your password must be at least 8 characters long'],
+			select: false
+		},
 		role: {
 			type: String,
 			enum: {
@@ -23,12 +29,6 @@ const userSchema = new mongoose.Schema(
 				message: 'Please select correct role'
 			},
 			default: 'user'
-		},
-		password: {
-			type: String,
-			required: [true, 'Please enter password for your account'],
-			minlength: [8, 'Your password must be at least 8 characters long'],
-			select: false
 		},
 		createdAt: {
 			type: Date,

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app",
-    "prod": "SET NODE_ENV=production & nodemon app.js"
+    "prod": "SET NODE_ENV=production & nodemon app.js",
+    "debug": "node inspect app.js"
   },
   "author": "hai nguyen",
   "license": "ISC",
@@ -16,9 +17,11 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-fileupload": "^1.4.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
     "node-geocoder": "^4.2.0",
+    "nodemailer": "^6.9.7",
     "slugify": "^1.6.6",
     "validator": "^13.11.0"
   },
