@@ -9,6 +9,9 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 
 const connectDatabase = require('./config/database');
 const errorMiddleware = require('./middlewares/errors');
@@ -29,8 +32,12 @@ process.on('uncaughtException', err => {
 // Connecting to databse
 connectDatabase();
 
-// set up body parser
+// Set up body parser
+app.use(bodyParser.urlencoded({ extended : true }));
+
 app.use(express.json());
+
+app.use(express.static('public'));
 
 //set cooke parser
 app.use(cookieParser());
@@ -61,6 +68,9 @@ app.use(limiter);
 
 // Setup security headers
 app.use(helmet());
+
+// Setup CORS - Accessible by other domains
+app.use(cors());
 
 // import all routes
 const job = require('./routes/job');
