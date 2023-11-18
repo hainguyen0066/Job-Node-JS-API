@@ -15,6 +15,8 @@ const sendToken = (user, statusCode, res) => {
 		options.secure = true;
 	}
 
+	res.setHeader('Authorization', `Bearer ${token}`);
+
 	res.status(statusCode).cookie('token', token, options).json({
 		success: true,
 		token

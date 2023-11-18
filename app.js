@@ -4,6 +4,11 @@ const app = express();
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xssClean = require('xss-clean');
+const hpp = require('hpp');
 
 const connectDatabase = require('./config/database');
 const errorMiddleware = require('./middlewares/errors');
@@ -32,6 +37,30 @@ app.use(cookieParser());
 
 //set cooke parser
 app.use(fileUpload());
+
+//set Express Mongo Sanitize
+app.use(mongoSanitize());
+
+// Prevent XSS attacks
+app.use(xssClean());
+
+// Prevent Parameter Pollution
+app.use(
+	hpp({
+		whitelist: ['positions']
+	})
+);
+
+// Rate Limiting
+const limiter = rateLimit({
+    windowMs: 10*60*1000, //10 Mints
+    max : 100
+});
+
+app.use(limiter);
+
+// Setup security headers
+app.use(helmet());
 
 // import all routes
 const job = require('./routes/job');
