@@ -32,6 +32,8 @@ process.on('uncaughtException', err => {
 // Connecting to databse
 connectDatabase();
 
+app.set('trust proxy', true);
+
 // Set up body parser
 app.use(bodyParser.urlencoded({ extended : true }));
 
@@ -63,6 +65,8 @@ const limiter = rateLimit({
     windowMs: 10*60*1000, //10 Mints
     max : 100
 });
+
+
 
 app.use(limiter);
 
